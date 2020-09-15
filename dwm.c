@@ -1211,13 +1211,12 @@ maprequest(XEvent *e)
 {
 	static XWindowAttributes wa;
 	XMapRequestEvent *ev = &e->xmaprequest;
-
-   Client *i;
-   if ((i = wintosystrayicon(ev->window))) {
-       sendevent(i->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_WINDOW_ACTIVATE, 0, systray->win,
-       resizebarwin(selmon);
-       updatesystray();
-   }
+    Client *i;
+    if ((i = wintosystrayicon(ev->window))) {
+        sendevent(i->win, netatom[Xembed], StructureNotifyMask, CurrentTime, XEMBED_WINDOW_ACTIVATE, 0, systray->win, XEMBED_EMBEDDED_VERSION);
+        resizebarwin(selmon);
+        updatesystray();
+    }
 
 	if (!XGetWindowAttributes(dpy, ev->window, &wa))
 		return;
@@ -2272,24 +2271,24 @@ updatesystray(void)
    unsigned int w = 1;
 
    if (!showsystray)
-       return;
+    return;
    if (!systray) {
-       /* init systray */
-       if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
+        /* init systray */
+        if (!(systray = (Systray *)calloc(1, sizeof(Systray))))
            die("fatal: could not malloc() %u bytes\n", sizeof(Systray));
-       systray->win = XCreateSimpleWindow(dpy, root, x, m->by, w, bh, 0, 0, scheme[SchemeSel][ColBg].pixel);
-       wa.event_mask        = ButtonPressMask | ExposureMask;
-       wa.override_redirect = True;
-       wa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
-       XSelectInput(dpy, systray->win, SubstructureNotifyMask);
-       XChangeProperty(dpy, systray->win, netatom[NetSystemTrayOrientation], XA_CARDINAL, 32,
+        systray->win = XCreateSimpleWindow(dpy, root, x, m->by, w, bh, 0, 0, scheme[SchemeSel][ColBg].pixel);
+        wa.event_mask        = ButtonPressMask | ExposureMask;
+        wa.override_redirect = True;
+        wa.background_pixel  = scheme[SchemeNorm][ColBg].pixel;
+        XSelectInput(dpy, systray->win, SubstructureNotifyMask);
+        XChangeProperty(dpy, systray->win, netatom[NetSystemTrayOrientation], XA_CARDINAL, 32,
                PropModeReplace, (unsigned char *)&netatom[NetSystemTrayOrientationHorz], 1);
-       XChangeWindowAttributes(dpy, systray->win, CWEventMask|CWOverrideRedirect|CWBackPixel, &wa);
-       XMapRaised(dpy, systray->win);
-       XSetSelectionOwner(dpy, netatom[NetSystemTray], systray->win, CurrentTime);
-       if (XGetSelectionOwner(dpy, netatom[NetSystemTray]) == systray->win) {
-           sendevent(root, xatom[Manager], StructureNotifyMask, CurrentTime, netatom[NetSystemTray], systray->win, 0,
-           XSync(dpy, False);
+        XChangeWindowAttributes(dpy, systray->win, CWEventMask|CWOverrideRedirect|CWBackPixel, &wa);
+        XMapRaised(dpy, systray->win);
+        XSetSelectionOwner(dpy, netatom[NetSystemTray], systray->win, CurrentTime);
+        if (XGetSelectionOwner(dpy, netatom[NetSystemTray]) == systray->win) {
+            sendevent(root, xatom[Manager], StructureNotifyMask, CurrentTime, netatom[NetSystemTray], systray->win, 0, 0);
+            XSync(dpy, False);
        }
        else {
            fprintf(stderr, "dwm: unable to obtain system tray.\n");
