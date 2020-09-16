@@ -61,7 +61,10 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+    { MODKEY,                       XK_p,      spawn,          SHCMD("rofi -modi drun -terminal st -show drun -show-icons") },
+    { MODKEY,                       XK_r,      spawn,          SHCMD("rofi -combi -modi window,drun,combi -terminal st -show combi -show-icons") },
+    { MODKEY,                       XK_w,      spawn,          SHCMD("rofi -width 15 -lines 6 -show power-menu -modi power-menu:/home/ldermois/.desktop-config/dotfiles/scripts/rofi-power-menu.sh") },
+    { MODKEY,                       XK_q,      spawn,          SHCMD("/home/ldermois/.local/bin/rofi-mpd -g") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
