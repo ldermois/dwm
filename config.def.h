@@ -65,7 +65,7 @@ static Key keys[] = {
     { MODKEY,                       XK_r,      spawn,          SHCMD("rofi -combi -modi window,drun,combi -terminal st -show combi -show-icons") },
     { MODKEY,                       XK_w,      spawn,          SHCMD("rofi -width 15 -lines 6 -show power-menu -modi power-menu:/home/ldermois/.desktop-config/dotfiles/scripts/rofi-power-menu.sh") },
     { MODKEY,                       XK_q,      spawn,          SHCMD("/home/ldermois/.local/bin/rofi-mpd -g") },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
