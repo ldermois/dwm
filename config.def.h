@@ -26,12 +26,13 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-    { "Arandr",   NULL,       NULL,       0,            1,           -1 },
-	{ "Keepassx",  NULL,      NULL,       1 << 7,       0,           -1 },
-	{ "Evolution",  NULL,     NULL,       1 << 3,       0,           -1 },
-
+	/* class                    instance    title           tags mask       isfloating      monitor */
+    { "Gimp",                   NULL,       NULL,           0,              1,              -1 },
+    { "Arandr",                 NULL,       NULL,           0,              1,              -1 },
+    { "Keepassx",               NULL,       NULL,           1 << 7,         0,              -1 },
+    { "Evolution",              NULL,       NULL,           1 << 3,         0,              -1 },
+    { "evolution-alarm-notify", NULL,       NULL,           0,              1,              -1 },
+    { NULL,                     NULL,       "Bluetooth",    0,              1,              -1 },
 };
 
 /* layout(s) */
