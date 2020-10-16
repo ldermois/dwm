@@ -9,8 +9,8 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "DejaVuSansMono Nerd Font Mono:size=10" };
+static const char dmenufont[]       = "DejaVuSansMono Nerd Font Mono:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -24,16 +24,20 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "歷", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	/* class                    instance    title           tags mask       isfloating      monitor */
+    { "Gimp",                   NULL,       NULL,           0,              1,              -1 },
+    { "Arandr",                 NULL,       NULL,           0,              1,              -1 },
+    { "Keepassx",               NULL,       NULL,           1 << 7,         0,              -1 },
+    { "Evolution",              NULL,       NULL,           1 << 3,         0,              -1 },
+    { "evolution-alarm-notify", NULL,       NULL,           0,              1,              -1 },
+    { NULL,                     NULL,       "Bluetooth",    0,              1,              -1 },
 };
 
 /* layout(s) */
@@ -49,7 +53,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -66,8 +70,11 @@ static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+    { MODKEY,                       XK_p,      spawn,          SHCMD("rofi -modi drun -terminal st -show drun -show-icons") },
+    { MODKEY,                       XK_r,      spawn,          SHCMD("rofi -combi -modi window,drun,combi -terminal st -show combi -show-icons") },
+    { MODKEY,                       XK_w,      spawn,          SHCMD("rofi -width 15 -lines 6 -show power-menu -modi power-menu:/home/ldermois/.desktop-config/dotfiles/scripts/rofi-power-menu.sh") },
+    { MODKEY,                       XK_q,      spawn,          SHCMD("/home/ldermois/.local/bin/rofi-mpd -g") },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
@@ -77,7 +84,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
