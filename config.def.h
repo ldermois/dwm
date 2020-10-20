@@ -28,16 +28,15 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger ~/Dropbox/Documents/Notes", NULL };
+const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger --selectfile /home/ldermois/Dropbox/Documents/Notes/", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
 	{"spranger",    spcmd2},
-	{"keepassxc",   spcmd3},
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "歷", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "歷", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -51,8 +50,8 @@ static const Rule rules[] = {
     { "Evolution",              NULL,       NULL,           1 << 3,         0,              -1 },
     { "evolution-alarm-notify", NULL,       NULL,           0,              1,              -1 },
     { NULL,                     NULL,       "Bluetooth",    0,              1,              -1 },
-	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
-	{ NULL,		  "spfm",		NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		                "spterm",	NULL,		    SPTAG(0),		1,			    -1 },
+	{ NULL,		                "spfm",		NULL,		    SPTAG(1),		1,			    -1 },
 };
 
 /* layout(s) */
