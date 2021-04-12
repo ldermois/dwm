@@ -83,14 +83,14 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "kitty", NULL };
 
 #include "movestack.c"
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-    { MODKEY,                       XK_p,      spawn,          SHCMD("rofi -modi drun -terminal st -show drun -show-icons") },
-    { MODKEY,                       XK_r,      spawn,          SHCMD("rofi -combi -modi window,drun,combi -terminal st -show combi -show-icons") },
+    { MODKEY,                       XK_p,      spawn,          SHCMD("rofi -modi drun -terminal kitty -show drun -show-icons") },
+    { MODKEY,                       XK_r,      spawn,          SHCMD("rofi -combi -modi window,drun,combi -terminal kitty -show combi -show-icons") },
     { MODKEY,                       XK_w,      spawn,          SHCMD("rofi -width 15 -lines 6 -show power-menu -modi power-menu:/home/ldermois/.desktop-config/dotfiles/scripts/rofi-power-menu.sh") },
     { MODKEY,                       XK_q,      spawn,          SHCMD("/home/ldermois/.local/bin/rofi-mpd -g") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
